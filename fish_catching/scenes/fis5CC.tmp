@@ -1,0 +1,97 @@
+[gd_scene load_steps=8 format=3 uid="uid://1tu6segun65b"]
+
+[ext_resource type="Script" path="res://scrpits/fish.gd" id="1_asskl"]
+[ext_resource type="Texture2D" uid="uid://cqh0oej7binal" path="res://assets/fish/fishTile_081.png" id="2_7u3ry"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lmcws"]
+size = Vector2(114.667, 85.3333)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qrgnp"]
+size = Vector2(116, 86)
+
+[sub_resource type="Animation" id="Animation_lph7w"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_ick2x"]
+resource_name = "caught"
+length = 0.4
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(-45.3333, 28), Vector2(0, 55.3333), Vector2(29.3333, 48)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [-0.514872, -1.49226, -1.98444]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_rbef6"]
+_data = {
+"RESET": SubResource("Animation_lph7w"),
+"caught": SubResource("Animation_ick2x")
+}
+
+[node name="Fish" type="Area2D" groups=["fish"]]
+scale = Vector2(1.5, 1.5)
+script = ExtResource("1_asskl")
+
+[node name="RigidBody2D" type="RigidBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D"]
+position = Vector2(0, -0.666668)
+shape = SubResource("RectangleShape2D_lmcws")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_qrgnp")
+debug_color = Color(0, 0.6, 0.701961, 0.529412)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(1.92188, 1.65625)
+texture = ExtResource("2_7u3ry")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_rbef6")
+}
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]

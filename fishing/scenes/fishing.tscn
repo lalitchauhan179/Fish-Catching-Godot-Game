@@ -1,0 +1,55 @@
+[gd_scene load_steps=8 format=3 uid="uid://d4huqwuvwximv"]
+
+[ext_resource type="Script" path="res://scripts/fishing.gd" id="1_3vhon"]
+[ext_resource type="Texture2D" uid="uid://d14b61jylmye5" path="res://assets/1cd08ecf9fcf3a2c42733b5ae4e559e4-removebg-preview.png" id="1_hq4pr"]
+[ext_resource type="Script" path="res://scripts/hook.gd" id="2_ga5x6"]
+[ext_resource type="AudioStream" uid="uid://biwwe7vhimolk" path="res://assets/angel-fly-fish-reel-slow-pull_2-40949.mp3" id="4_5avvp"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hrfj8"]
+size = Vector2(553, 829)
+
+[sub_resource type="Curve2D" id="Curve2D_tf4cw"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 12, 423, 0, 0, 0, 0, 17, 527, 0, 0, 0, 0, 17, 646, 0, 0, 0, 0, 15, 782, 0, 0, 0, 0, 14, 891)
+}
+point_count = 5
+
+[sub_resource type="Curve2D" id="Curve2D_jc2m1"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 493, 400, 0, 0, 0, 0, 499, 480, 0, 0, 0, 0, 502, 567, 0, 0, 0, 0, 508, 701, 0, 0, 0, 0, 506, 806, 0, 0, 0, 0, 497, 861, 0, 0, 0, 0, 497, 878)
+}
+point_count = 7
+
+[node name="fishing" type="Node2D"]
+script = ExtResource("1_3vhon")
+
+[node name="Hook" type="Area2D" parent="." node_paths=PackedStringArray("reel_audio")]
+light_mask = 3
+visibility_layer = 3
+position = Vector2(257, 77)
+script = ExtResource("2_ga5x6")
+reel_audio = NodePath("AudioStreamPlayer2D")
+
+[node name="Sprite2D" type="Sprite2D" parent="Hook"]
+scale = Vector2(0.19, 0.19)
+texture = ExtResource("1_hq4pr")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hook"]
+position = Vector2(0, 50)
+shape = SubResource("RectangleShape2D_hrfj8")
+
+[node name="Line2D" type="Line2D" parent="Hook"]
+points = PackedVector2Array(21, -45, 27, -327, 48, -815, 48, -1109)
+default_color = Color(0, 0, 0, 1)
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="Hook"]
+position = Vector2(-1, 47)
+stream = ExtResource("4_5avvp")
+
+[node name="Path2D" type="Path2D" parent="."]
+curve = SubResource("Curve2D_tf4cw")
+
+[node name="Path2D2" type="Path2D" parent="."]
+curve = SubResource("Curve2D_jc2m1")
+
+[connection signal="body_entered" from="Hook" to="Hook" method="_on_body_entered"]

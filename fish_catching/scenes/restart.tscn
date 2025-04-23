@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=3 uid="uid://ty3kd5gmghu"]
+
+[ext_resource type="Texture2D" uid="uid://bfxgca8qgjce1" path="res://game/extra/pngwing.com (3).png" id="1_h7w5v"]
+[ext_resource type="Script" path="res://game/scripts/restart.gd" id="2_435td"]
+
+[node name="restart" type="Button"]
+anchors_preset = -1
+anchor_left = 0.881
+anchor_top = 0.016
+anchor_right = 0.974
+anchor_bottom = 0.071
+offset_left = 0.519958
+offset_top = -0.720003
+offset_right = 1908.08
+offset_bottom = 2021.68
+grow_horizontal = 0
+scale = Vector2(0.05, 0.05)
+icon = ExtResource("1_h7w5v")
+script = ExtResource("2_435td")
+
+[connection signal="pressed" from="." to="." method="_on_pressed"]

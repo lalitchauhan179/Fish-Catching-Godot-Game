@@ -1,0 +1,35 @@
+[gd_scene load_steps=6 format=3 uid="uid://rs14ly44ixhh"]
+
+[ext_resource type="Script" path="res://scrpits/hook.gd" id="1_larah"]
+[ext_resource type="Texture2D" uid="uid://bsvcm67j78hb8" path="res://assets/1cd08ecf9fcf3a2c42733b5ae4e559e4-removebg-preview.png" id="2_oiw7g"]
+[ext_resource type="AudioStream" uid="uid://81p5f86k8d4o" path="res://assets/audio/angel-fly-fish-reel-slow-pull_2-40949.mp3" id="3_b4ip4"]
+[ext_resource type="AudioStream" uid="uid://dvyf47dhkh6bq" path="res://assets/audio/bonus-points-190035.mp3" id="4_ivobm"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_vs4kl"]
+radius = 74.6227
+
+[node name="Hook" type="Area2D" node_paths=PackedStringArray("reel_audio", "catch_sound") groups=["hook"]]
+script = ExtResource("1_larah")
+reel_audio = NodePath("AudioStreamPlayer2D")
+catch_sound = NodePath("AudioStreamPlayer2D2")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.337973, 0.309353)
+texture = ExtResource("2_oiw7g")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_vs4kl")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_b4ip4")
+
+[node name="FishingLine" type="Line2D" parent="."]
+position = Vector2(-687.267, -2066.67)
+points = PackedVector2Array(798, -1790, 787, 185, 728.421, 1987.67)
+default_color = Color(0, 0, 0, 1)
+
+[node name="AudioStreamPlayer2D2" type="AudioStreamPlayer2D" parent="."]
+position = Vector2(6.17307, 16.6332)
+stream = ExtResource("4_ivobm")
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]

@@ -1,0 +1,77 @@
+[gd_scene load_steps=8 format=3 uid="uid://pyp5dj4ofggp"]
+
+[ext_resource type="Texture2D" uid="uid://cdju1x55pwftw" path="res://assets/background/VecteezyUnder-The-Sea-Ocean-BackgroundAW0222_-Converted-_generated.jpg" id="1_ak6su"]
+[ext_resource type="Script" path="res://scrpits/fishing_game.gd" id="1_wux4k"]
+[ext_resource type="PackedScene" uid="uid://rs14ly44ixhh" path="res://scenes/hook.tscn" id="3_wfgwu"]
+
+[sub_resource type="Curve2D" id="Curve2D_aye2i"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 51.4421, 802.552, 0, 0, 0, 0, 34.9806, 1347.29, 0, 0, 0, 0, 39.096, 1779.75, 0, 0, 0, 0, 43.2114, 567.608, 0, 0, 0, 0, 43.2114, 1070.76, 0, 0, 0, 0, 39.096, 1567.68)
+}
+point_count = 6
+
+[sub_resource type="Curve2D" id="Curve2D_26gl3"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 1051.48, 787.997, 0, 0, 0, 0, 1032.96, 1426.3, 0, 0, 0, 0, 1028, 1864, 0, 0, 0, 0, 1028.84, 498.996, 0, 0, 0, 0, 1032.96, 1008.39, 0, 0, 0, 0, 1024.73, 1673.71)
+}
+point_count = 6
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_lppk1"]
+resource_local_to_scene = true
+content_margin_left = 1.0
+content_margin_top = 1.0
+content_margin_right = 1.0
+content_margin_bottom = 1.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_uvp7k"]
+bg_color = Color(0.409742, 0.685139, 0.245803, 1)
+border_color = Color(1, 1, 1, 1)
+
+[node name="FishingGame" type="Node2D"]
+scale = Vector2(0.485983, 0.480966)
+script = ExtResource("1_wux4k")
+
+[node name="Background" type="Sprite2D" parent="."]
+z_index = -1
+position = Vector2(543.229, 974.081)
+scale = Vector2(0.949144, 2.05916)
+texture = ExtResource("1_ak6su")
+
+[node name="Hook" parent="." instance=ExtResource("3_wfgwu")]
+position = Vector2(553.517, 170.49)
+
+[node name="Path2D" type="Path2D" parent="."]
+curve = SubResource("Curve2D_aye2i")
+
+[node name="Path2D2" type="Path2D" parent="."]
+curve = SubResource("Curve2D_26gl3")
+
+[node name="TimerBar" type="ProgressBar" parent="."]
+show_behind_parent = true
+offset_left = 126.0
+offset_top = 54.0
+offset_right = 323.0
+offset_bottom = 94.0
+theme_override_styles/background = SubResource("StyleBoxEmpty_lppk1")
+theme_override_styles/fill = SubResource("StyleBoxFlat_uvp7k")
+max_value = 50.0
+
+[node name="TargetFish" type="Sprite2D" parent="."]
+position = Vector2(80.2497, 76.9285)
+
+[node name="TimerBar3" type="TextureProgressBar" parent="."]
+offset_left = 86.0
+offset_top = 312.0
+offset_right = 323.0
+offset_bottom = 352.0
+tint_under = Color(0.18176, 0.98494, 1, 1)
+tint_over = Color(0, 0.858824, 0.333333, 1)
+
+[node name="ColorRect" type="ColorRect" parent="."]
+z_index = -1
+offset_left = 21.0
+offset_top = 25.0
+offset_right = 334.0
+offset_bottom = 146.0
+
+[connection signal="area_entered" from="Hook" to="." method="_on_hook_area_entered"]
